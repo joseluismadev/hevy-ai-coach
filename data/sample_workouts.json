@@ -1,0 +1,29 @@
+[
+  {
+    "date": "2026-10-01",
+    "workout_name": "Push day",
+    "exercises": [
+      {"name": "Bench Press", "muscle_group": "Chest", "sets": 5, "reps": 8, "weight_kg": 70},
+      {"name": "Overhead Press", "muscle_group": "Shoulders", "sets": 4, "reps": 8, "weight_kg": 40},
+      {"name": "Triceps Dips", "muscle_group": "Triceps", "sets": 3, "reps": 10, "weight_kg": 15}
+    ]
+  },
+  {
+    "date": "2026-10-03",
+    "workout_name": "Pull day",
+    "exercises": [
+      {"name": "Pull Up", "muscle_group": "Back", "sets": 4, "reps": 8, "weight_kg": 0},
+      {"name": "Barbell Row", "muscle_group": "Back", "sets": 5, "reps": 8, "weight_kg": 60},
+      {"name": "Hammer Curl", "muscle_group": "Biceps", "sets": 3, "reps": 10, "weight_kg": 20}
+    ]
+  },
+  {
+    "date": "2026-10-05",
+    "workout_name": "Leg day",
+    "exercises": [
+      {"name": "Back Squat", "muscle_group": "Legs", "sets": 5, "reps": 6, "weight_kg": 90},
+      {"name": "Romanian Deadlift", "muscle_group": "Hamstrings", "sets": 4, "reps": 8, "weight_kg": 80},
+      {"name": "Leg Curl", "muscle_group": "Hamstrings", "sets": 3, "reps": 10, "weight_kg": 35}
+    ]
+  }
+]
