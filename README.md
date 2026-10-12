@@ -50,14 +50,15 @@ Crear un MVP con estas capacidades:
 - Añadir dashboard simple.
 - Preparar despliegue local o en la nube.
 
-## Recomendación realista para Hevy
+## Datos de Hevy
 
-Hevy Pro te da acceso a una mejor experiencia de seguimiento, pero no siempre existen endpoints públicos listos para consumir. Por eso, esta base de proyecto está pensada para trabajar en dos caminos:
+Hevy Pro ofrece una API pública (https://api.hevyapp.com/docs). La clave se obtiene en
+Ajustes > Developer y se envía en la cabecera `api-key`. El proyecto descarga:
 
-1. Importación manual desde exportaciones o JSON.
-2. Integración futura con una API o automatización si Hevy lo permite.
+- Tus entrenamientos (`/v1/workouts`) → `data/hevy_workouts.json`
+- El catálogo de ejercicios (`/v1/exercise_templates`), que aporta el grupo muscular
 
-La idea es que el proyecto aprenda bien el flujo completo de IA: datos, análisis y generación de valor, sin depender del 100% de una API externa.
+Ambos ficheros son datos personales y están en `.gitignore`.
 
 ## Cómo arrancar
 
@@ -65,8 +66,30 @@ La idea es que el proyecto aprenda bien el flujo completo de IA: datos, análisi
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
-python -m src.app
+copy .env.example .env          # rellena HEVY_API_KEY y LLM_API_KEY
+
+python -m src.download_workouts # descarga tus datos de Hevy
+python -m pytest                # tests
+python -m src.evaluate          # evalúa el coach de IA contra tus datos
+python -m src.app               # API en http://localhost:8000/docs
 ```
+
+## Arquitectura del coach
+
+```
+Hevy API → dataset.py (1 fila por serie) → metrics.py (resumen) → coach.py (LLM) → /coach
+                                                                       ↑
+                                                         evaluate.py (comprobaciones)
+```
+
+- **El código calcula, el LLM interpreta.** El LLM nunca ve las miles de series en bruto,
+  solo un resumen de métricas ya calculadas (series por músculo, tendencias de 1RM...).
+- **Salida estructurada.** El informe sigue un esquema Pydantic (`CoachReport`), así que
+  se puede validar y mostrar en una interfaz.
+- **Independiente del proveedor.** Cualquier LLM compatible con la API de OpenAI (Gemini,
+  Groq, OpenAI...) se configura con `LLM_API_KEY`, `LLM_BASE_URL` y `LLM_MODEL`.
+- **Evaluación.** Cada error encontrado en las respuestas se convierte en una comprobación
+  automática en `evaluate.py`.
 
 ## Objetivo del MVP
 
@@ -77,12 +100,15 @@ El primer objetivo no es construir una app gigante. Es construir algo funcional 
 - ¿Estoy progresando o estancado?
 - ¿Qué debería entrenar la próxima semana?
 
-## Siguiente paso sugerido
+## Estado
 
-- Recolecta 3 a 10 entrenamientos reales en JSON.
-- Organiza los ejercicios por músculo y peso.
-- Crea funciones para calcular volumen y progreso.
-- Añade un prompt para un coach de IA.
+- [x] Descarga de entrenamientos reales desde la API de Hevy
+- [x] Dataset con una fila por serie, 1RM estimado y grupo muscular
+- [x] Notebook de exploración (`notebooks/01_exploracion.ipynb`)
+- [x] Coach de IA con salida estructurada y endpoint `/coach`
+- [x] Evaluación automática del coach (`python -m src.evaluate`)
+- [ ] Comparar varios modelos con la misma evaluación
+- [ ] Dashboard simple
 
 ## Nota
 
