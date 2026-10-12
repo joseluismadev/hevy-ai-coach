@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.venv
+.pytest_cache/
+
+# IDE
+.vscode/
+
+# Datos personales descargados de Hevy
+data/hevy_workouts.json
