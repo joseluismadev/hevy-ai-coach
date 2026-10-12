@@ -1,7 +1,11 @@
 fastapi>=0.118
 uvicorn>=0.37
 pandas>=2.3.3
+# numpy 2.5 lo bloquea el Smart App Control de Windows 11; 2.3.x funciona
+numpy>=2.3.3,<2.4
 python-dotenv>=1.1
 requests>=2.32
 openai>=1.100
 pytest>=8.4
+matplotlib>=3.10
+jupyter>=1.1
