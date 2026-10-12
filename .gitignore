@@ -10,3 +10,4 @@ __pycache__/
 
 # Datos personales descargados de Hevy
 data/hevy_workouts.json
+data/hevy_exercise_templates.json

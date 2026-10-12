@@ -14,3 +14,5 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 SAMPLE_WORKOUTS_PATH = DATA_DIR / "sample_workouts.json"
 # Aquí se guardan tus entrenamientos reales descargados de Hevy (no se sube a git)
 HEVY_WORKOUTS_PATH = DATA_DIR / "hevy_workouts.json"
+# Catálogo de ejercicios de Hevy: de aquí sale el grupo muscular de cada ejercicio
+HEVY_TEMPLATES_PATH = DATA_DIR / "hevy_exercise_templates.json"
